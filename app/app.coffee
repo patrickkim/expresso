@@ -27,5 +27,5 @@ require("#{__dirname}/routes")(app)
 
 # -¥- APIs -¥-
 server.listen settings.port, ->
-  console.log "Express server listening on " + " port %d ".bold.inverse.red + " in " + " %s mode ".bold.inverse.green + " //", settings.port, env
+  console.log "Express server listening on " + " port %d ".bold.red + " in " + " %s mode ".bold.green + " //", settings.port, env
   console.log "Using Express %s...", express.version.red.bold
