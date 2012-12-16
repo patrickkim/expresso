@@ -16,7 +16,7 @@
       "start": "server.js"
     }
   , "engines": {
-        "node": "0.8.15"
+        "node": "0.8.x"
       , "npm": "1.1.x"
     }
 }
