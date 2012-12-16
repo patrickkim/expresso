@@ -17,13 +17,12 @@ server = http.createServer(app)
 
 # -- Import configuration
 app_config = require("#{__dirname}/../config/settings")
+app_boot   = require("#{__dirname}/../config/boot")
 settings   = app_config.settings
 
 console.log "Application is starting...".green.bold
 app_config(app, express, env)
-
-# -- Routes
-require("#{__dirname}/routes")(app)
+app_boot.boot(app)
 
 # -¥- APIs -¥-
 server.listen settings.port, ->
