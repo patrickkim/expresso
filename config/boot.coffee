@@ -1,11 +1,12 @@
 express  = require "express"
-partials = require "express-partials"
-# routes   = require("#{__dirname}/routes")(app)
 
 # Global paths
-views       = "#{__dirname}/../app/views"
-static_root = "#{__dirname}/public"
-helpers     = "#{__dirname}/../app/helpers"
+views_path       = "#{__dirname}/../app/views"
+static_path      = "#{__dirname}/public"
+helpers_path     = "#{__dirname}/../app/helpers"
+lib_path         = "#{__dirname}/../lib"
+controllers_path = "#{__dirname}/../app/controllers"
+routes_path      = "#{__dirname}/../app/routes"
 
 ###
 Global configuration
@@ -14,14 +15,12 @@ module.exports.boot = (app) ->
   app.configure ->
 
     # -- Define view engine with its options
-    app.set "views", views
+    app.set "views", views_path
     app.set "view engine", "ejs"
-    app.enable "jsonp callback"
+    # app.enable "jsonp callback"
 
     # -- Set uncompressed html output and disable layout templating
-    app.locals
-      pretty: true
-      layout: false
+    # app.locals( pretty: true, layout: false)
 
     # -- Parses x-www-form-urlencoded request bodies (and json)
     app.use express.bodyParser()
@@ -41,28 +40,14 @@ module.exports.boot = (app) ->
         next()
 
     # -- Express Static Resources
-    app.use express.static(static_root)
+    app.use express.static(static_path)
 
-    # -- Express Partials
-    app.use partials()
+    # -- App helpers
+    app.helpers = require(helpers_path)
+    app.helpers.autoload(lib_path, app)
+    app.helpers.autoload(controllers_path, app)
 
     # -- Express routing
     app.use app.router
-    # require("#{__dirname}/../app/routes")(app)
+    require(routes_path)(app)
 
-    # -- App helpers
-    app.helpers = require(helpers)
-    app.helpers.autoload "#{__dirname}/../lib", app
-    app.helpers.autoload "#{__dirname}/../app/controllers", app
-
-    console.log app.helpers
-
-    # -- 500 status
-    app.use (err, req, res, next) ->
-      console.log err
-      res.status(500).send err
-
-    # -- 404 status
-    app.use (req, res, next) ->
-      console.log "404"
-      res.status(404).end()
