@@ -1,8 +1,8 @@
-# global require:false 
+# global require:false
 # Module dependencies.
 express = require "express"
 http    = require "http"
-nano    = require('nano')('http://localhost:5984')
+# nano    = require('nano')('http://localhost:5984')
 #    async       = require('async')
 #    request     = require('request')
 

@@ -5,13 +5,13 @@ connectAssets = require("connect-assets")
 module.exports = (app, express) ->
   app.use express.logger(
     format: "tiny"
-    stream: fs.createWriteStream("logs/node.log")
+    # stream: fs.createWriteStream("log/node.log")
   )
 
   #Enable dependency based asset loading
   #Setup concatenate and compress build dir
   app.use connectAssets(
-    src: __dirname + "/../public"
+    src: "#{__dirname}/../../app/public"
     buildDir: "public_build"
   )
   app.use express.staticCache()
