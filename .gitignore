@@ -1,4 +1,5 @@
 node_modules/
+public/bin/
 
 *.rdb
 *.DS_Store
