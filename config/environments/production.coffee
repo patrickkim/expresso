@@ -4,10 +4,13 @@ fs            = require("fs")
 #gzippo = require('gzippo');
 module.exports = (app, express) ->
   # app.use express.logger("dev")
-  # app.use express.logger(
-  #   format: "tiny"
-  #   stream: fs.createWriteStream("log/node.log")
-  # )
+
+  log_file = fs.createWriteStream("./log/node.log", {"flags": "a"});
+  app.disable('quiet')
+  app.use express.logger(
+    format: "tiny"
+    stream: log_file
+  )
 
   #Enable dependency based asset loading
   #Setup concatenate and compress build dir
