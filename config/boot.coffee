@@ -2,7 +2,7 @@ express  = require "express"
 
 # Global paths
 views_path       = "#{__dirname}/../app/views"
-static_path      = "#{__dirname}/public"
+static_path      = "#{__dirname}/../public"
 helpers_path     = "#{__dirname}/../app/helpers"
 lib_path         = "#{__dirname}/../lib"
 controllers_path = "#{__dirname}/../app/controllers"
@@ -41,6 +41,7 @@ module.exports.boot = (app) ->
 
     # -- Express Static Resources
     app.use express.static(static_path)
+    app.use express.favicon("#{static_path}/images/favicon.ico")
 
     # -- App helpers
     app.helpers = require(helpers_path)

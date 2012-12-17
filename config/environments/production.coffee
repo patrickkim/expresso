@@ -10,14 +10,12 @@ module.exports = (app, express) ->
   )
 
   #Enable dependency based asset loading
-  #Setup concatenate and compress build dir (NOT WORKING YET)
+  #Setup concatenate and compress build dir
+  #(NOT WORKING YET)
   app.use connectAssets(
     build: true
-    compress: true
-    buildDir: false
-    src: "#{__dirname}/../../app/assets"
+    src: "#{__dirname}/../../public/public_build"
   )
-  app.use express.staticCache()
 
   #var duration = 2592000000; // One month
   #app.use(gzippo.staticGzip(__dirname + '/../public_build/', { maxAge: duration }));
