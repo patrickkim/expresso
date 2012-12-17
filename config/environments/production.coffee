@@ -14,7 +14,9 @@ module.exports = (app, express) ->
   #(NOT WORKING YET)
   app.use connectAssets(
     build: true
-    src: "#{__dirname}/../../public/public_build"
+    compress: true
+    buildDir: "./public/bin"
+    src: "#{__dirname}/../../app/assets"
   )
 
   #var duration = 2592000000; // One month
