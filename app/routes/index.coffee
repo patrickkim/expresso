@@ -2,6 +2,7 @@ module.exports = (app) ->
   # Index
   app.get '/', app.ApplicationController.index
   app.get '/dumbass',  app.ApplicationController.dumbass
+  app.post '/form-test', app.ApplicationController.rick_roll
 
   # Error handling (No previous route found. Assuming it’s a 404)
   app.get '/*', (req, res) ->
