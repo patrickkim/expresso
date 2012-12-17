@@ -1,5 +1,5 @@
 connectAssets = require("connect-assets")
-fs            = require("fs")
+# fs            = require("fs")
 
 #gzippo = require('gzippo');
 module.exports = (app, express) ->
