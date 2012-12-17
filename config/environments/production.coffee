@@ -14,7 +14,7 @@ module.exports = (app, express) ->
   app.use connectAssets(
     build: true
     compress: true
-    buildDir: "./bin"
+    buildDir: "./public/bin"
     src: "#{__dirname}/../../app/assets"
   )
 
