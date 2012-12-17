@@ -1,9 +1,9 @@
-fs = require("fs")
 connectAssets = require("connect-assets")
+fs            = require("fs")
 
 #gzippo = require('gzippo');
 module.exports = (app, express) ->
-
+  # app.use express.logger("dev")
   app.use express.logger(
     format: "tiny"
     stream: fs.createWriteStream("log/node.log")
@@ -11,11 +11,10 @@ module.exports = (app, express) ->
 
   #Enable dependency based asset loading
   #Setup concatenate and compress build dir
-  #(NOT WORKING YET)
   app.use connectAssets(
     build: true
     compress: true
-    buildDir: "./public/bin"
+    buildDir: "./bin"
     src: "#{__dirname}/../../app/assets"
   )
 

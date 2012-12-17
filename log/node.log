@@ -1,0 +1,13 @@
+GET / 200 685 - 101 ms
+GET /css/styles.css 200 262 - 1 ms
+GET /js/scripts.js 200 60 - 1 ms
+GET /js/new.js 200 62 - 1 ms
+GET /dumbass 200 543 - 8 ms
+GET /css/styles.css 304 - - - ms
+GET /js/scripts.js 200 60 - 2 ms
+GET /js/new.js 200 62 - 2 ms
+GET /dumbass 200 543 - 6 ms
+GET /css/styles.css 304 - - - ms
+GET /js/scripts.js 200 60 - - ms
+GET /js/new.js 200 62 - - ms
+GET /dumbasssas 200 25 - 21 ms
