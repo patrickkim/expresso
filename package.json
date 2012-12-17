@@ -12,7 +12,7 @@
     "string-format": "~0.2.0"
   },
   "devDependencies": {
-    
+    "nodemon": "*"
   },
   "scripts": {
     "start": "server.js"
