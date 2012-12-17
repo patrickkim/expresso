@@ -17,10 +17,10 @@ module.exports.boot = (app) ->
     # -- Define view engine with its options
     app.set "views", views_path
     app.set "view engine", "ejs"
-    # app.enable "jsonp callback"
+    app.enable "jsonp callback"
 
     # -- Set uncompressed html output and disable layout templating
-    # app.locals( pretty: true, layout: false)
+    app.locals( pretty: true, layout: false)
 
     # -- Parses x-www-form-urlencoded request bodies (and json)
     app.use express.bodyParser()

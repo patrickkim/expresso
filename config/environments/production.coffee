@@ -3,16 +3,19 @@ connectAssets = require("connect-assets")
 
 #gzippo = require('gzippo');
 module.exports = (app, express) ->
+
   app.use express.logger(
     format: "tiny"
-    # stream: fs.createWriteStream("log/node.log")
+    stream: fs.createWriteStream("log/node.log")
   )
 
   #Enable dependency based asset loading
-  #Setup concatenate and compress build dir
+  #Setup concatenate and compress build dir (NOT WORKING YET)
   app.use connectAssets(
-    src: "#{__dirname}/../../app/public"
-    buildDir: "public_build"
+    build: true
+    compress: true
+    buildDir: false
+    src: "#{__dirname}/../../app/assets"
   )
   app.use express.staticCache()
 
