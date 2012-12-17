@@ -1,0 +1,1 @@
+nodemon: nodemon --watch app --watch lib --watch config ./app/app.coffee

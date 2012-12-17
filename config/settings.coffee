@@ -3,7 +3,7 @@ settings =
   siteName: "yoursitename"
   sessionSecret: "sessionSecret"
   uri: "http://localhost" # Without trailing /
-  port: process.env.PORT or 3000
+  port: process.env.PORT or 1337
   debug: 0
   profile: 0
 
