@@ -6,6 +6,8 @@ exports.autoload = autoload = (dir, app) ->
     path = "#{dir}/#{file}"
     stats = fs.lstatSync(path)
 
+    console.log "Loading File: #{path}"
+
     # Go through the loop again if it is a directory
     if stats.isDirectory()
       autoload path, app

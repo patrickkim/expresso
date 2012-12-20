@@ -1,4 +1,4 @@
-connectAssets = require("connect-assets")
+connectAssets = require "connect-assets"
 
 module.exports = (app, express) ->
   app.use express.logger("dev")

@@ -1,17 +1,20 @@
 express  = require "express"
 
 # Global paths
-views_path       = "#{__dirname}/../app/views"
-static_path      = "#{__dirname}/../public"
-helpers_path     = "#{__dirname}/../app/helpers"
-lib_path         = "#{__dirname}/../lib"
-controllers_path = "#{__dirname}/../app/controllers"
-routes_path      = "#{__dirname}/../app/routes"
+static_path      = "#{__dirname}/public"
+lib_path         = "#{__dirname}/lib"
+helpers_path     = "#{__dirname}/app/helpers"
+models_path      = "#{__dirname}/app/models"
+views_path       = "#{__dirname}/app/views"
+controllers_path = "#{__dirname}/app/controllers"
+routes_path      = "#{__dirname}/app/routes"
 
 ###
 Global configuration
 ###
-module.exports.boot = (app) ->
+module.exports.boot_up = (app) ->
+  globo_var = "I AM GLOBOVAR!"
+
   app.configure ->
 
     # -- Define view engine with its options
@@ -46,6 +49,7 @@ module.exports.boot = (app) ->
     # -- App helpers
     app.helpers = require(helpers_path)
     app.helpers.autoload(lib_path, app)
+    app.helpers.autoload(models_path, app)
     app.helpers.autoload(controllers_path, app)
 
     # -- Express routing

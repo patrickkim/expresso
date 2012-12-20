@@ -1,7 +1,6 @@
 connectAssets = require("connect-assets")
 # fs            = require("fs")
 
-#gzippo = require('gzippo');
 module.exports = (app, express) ->
   # app.use express.logger("dev")
 
@@ -19,6 +18,4 @@ module.exports = (app, express) ->
     src: "#{__dirname}/../../app/assets"
   )
 
-  #var duration = 2592000000; // One month
-  #app.use(gzippo.staticGzip(__dirname + '/../public_build/', { maxAge: duration }));
   app.use express.errorHandler()

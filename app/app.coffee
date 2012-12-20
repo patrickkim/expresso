@@ -16,13 +16,13 @@ env    = app.settings.env
 server = http.createServer(app)
 
 # -- Import configuration
-app_config = require("#{__dirname}/../config/settings")
-app_boot   = require("#{__dirname}/../config/boot")
-settings   = app_config.settings
+load_config = require("#{__dirname}/../config/settings")
+app_loader    = require("#{__dirname}/../app_loader")
+settings    = load_config.settings
 
 console.log "Application is starting...".green.bold
-app_config(app, express, env)
-app_boot.boot(app)
+load_config(app, express, env)
+app_loader.boot_up(app)
 
 # -¥- APIs -¥-
 server.listen settings.port, ->

@@ -15,6 +15,7 @@ module.exports = (app) ->
       res.render('index', options)
 
     @dumbass: (req, res) ->
+      console.log globo_var
       options = { title: "dumbass figure it out of time", view: "index" }
       res.render('doobie', options)
 

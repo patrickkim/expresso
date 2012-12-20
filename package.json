@@ -6,7 +6,7 @@
     "connect-assets": "2.1.x",
     "ejs": "*",
     "less": "*",
-    "nano": "*",
+    "mongoose": "*",
     "coffee-script": "*",
     "colors": "0.x",
     "string-format": "~0.2.0",
