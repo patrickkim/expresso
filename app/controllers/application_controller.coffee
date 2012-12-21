@@ -1,7 +1,14 @@
 _ = require "underscore"
 
+mongoose = require "mongoose"
+mongoose.connect('mongodb://localhost/nodesample-dev')
+db = mongoose.connection
+
+Widget = require "../models/widget"
+
 module.exports = (app) ->
   class app.ApplicationController
+
 
     # GET /
     @index: (req, res) ->
@@ -15,13 +22,20 @@ module.exports = (app) ->
       res.render('index', options)
 
     @dumbass: (req, res) ->
-      console.log globo_var
       options = { title: "dumbass figure it out of time", view: "index" }
       res.render('doobie', options)
 
     @rick_roll: (req, res) ->
-      console.log req.body.field_of_one
-      console.log req.body.field_of_two
-      console.log "TESTING noddemon!"
+
+      test_widget = new Widget(
+        name: req.body.field_of_one
+        desc: req.body.field_of_two
+        updated_at: Date.now()
+      )
+
+      test_widget.save (err) ->
+        console.error err  if err
+
+      console.log test_widget
       options = { title: "dumbass figure it out of time", view: "index" }
       res.render('doobie', options)
