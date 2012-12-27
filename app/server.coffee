@@ -23,12 +23,12 @@ server = http.createServer(app)
 #   console.log "DB connection sucess"
 
 # -- Import configuration
-config_settings   = require("#{__dirname}/../config/settings")
-app_loader = require("#{__dirname}/app")
+load_settings = require("#{__dirname}/../config/settings")
+app_loader      = require("#{__dirname}/app")
 
 console.log "Application is starting...".green.bold
-settings = config_settings.settings
-config_settings(app, express, env) #Load ENV settings
+settings = load_settings.base_settings
+load_settings.env_settings(app, express, env)
 app_loader.boot_up_application(app)
 
 # -¥- APIs -¥-

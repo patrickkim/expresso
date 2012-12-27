@@ -9,13 +9,18 @@ mongoose.connection.on "error", (err) ->
   console.log "Could not connect to mongo server!".yellow
   console.log err.message.red
 
-try
-  mongoose.connect("mongodb://#{db_address}")
-  db = mongoose.connection
-  console.log "Started connection on " + "mongodb://#{db_address}".cyan + ", waiting for it to open...".grey
+mongoose.connect("mongodb://#{db_address}")
 
-catch err
-  console.log "Setting up failed to connect to #{db_address}".red, err.message
+# db = mongoose.connection
+# console.log db
+
+# try
+#   mongoose.connect("mongodb://#{db_address}")
+#   db = mongoose.connection
+#   console.log "Started connection on " + "mongodb://#{db_address}".cyan + ", waiting for it to open...".grey
+
+# catch err
+#   console.log "Setting up failed to connect to #{db_address}".red, err.message
 
 
 _ = require "underscore"

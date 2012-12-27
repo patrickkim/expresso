@@ -6,16 +6,15 @@ settings =
   port: process.env.PORT or 1337
   debug: 0
   profile: 0
+  # HISTORY_LIMIT_MSG_NUMBER: 50
 
-  # App settings
-  HISTORY_LIMIT_MSG_NUMBER: 50
+module.exports.base_settings = settings
 
 ###
-Default configuration manager
-Inject app and express reference
+# Default configuration manager
+# Inject app and express reference
 ###
-module.exports = (app, express, env) ->
+module.exports.env_settings = (app, express, env) ->
   require("./development") app, express  if env is "development"
   require("./production") app, express  if env is "production"
 
-module.exports.settings = settings
