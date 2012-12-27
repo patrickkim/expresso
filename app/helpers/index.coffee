@@ -3,9 +3,10 @@ fs = require 'fs'
 # Recursively require a folder’s files
 exports.autoload = autoload = (dir, app) ->
   fs.readdirSync(dir).forEach (file) ->
-    # console.log file
-    console.log "Matching File! #{file}" if file.match(/^\.\w+/)
-    # console.log "Actually loading: #{file}"
+
+    console.log "Skipping File! #{file} in #{dir}".yellow if file.match(/^\.\w+/)
+    return if file.match(/^\.\w+/)
+    console.log "Loading: #{dir}/#{file}".grey
 
     path = "#{dir}/#{file}"
     stats = fs.lstatSync(path)

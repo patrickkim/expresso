@@ -2,8 +2,8 @@ express  = require "express"
 
 # Global paths
 static_path      = "#{__dirname}/../public"
-# lib_path         = "#{__dirname}/../lib"
 helpers_path     = "#{__dirname}/helpers"
+lib_path         = "#{__dirname}/lib"
 models_path      = "#{__dirname}/models"
 views_path       = "#{__dirname}/views"
 controllers_path = "#{__dirname}/controllers"
@@ -46,7 +46,7 @@ module.exports.boot_up_application = (app) ->
 
     # -- App helpers
     app.helpers = require(helpers_path)
-    # app.helpers.autoload(lib_path, app)
+    app.helpers.autoload(lib_path, app)
     app.helpers.autoload(models_path, app)
     app.helpers.autoload(controllers_path, app)
 

@@ -33,5 +33,5 @@ app_loader.boot_up_application(app)
 
 # -¥- APIs -¥-
 server.listen settings.port, ->
-  console.log "Express server listening on " + " port %d ".bold.red + " in " + " %s mode ".bold.green + " //", settings.port, env
-  console.log "Using Express %s...", express.version.red.bold
+  console.log "Express server listening on " + "port:%d".cyan + " in " + "%s mode".cyan + "...", settings.port, env
+  console.log "Using Express #{express.version}".green

@@ -1,7 +1,24 @@
-_ = require "underscore"
+# -- Mongoose models and stuff loading.. add this to common
 mongoose = require "mongoose"
-mongoose.connect('mongodb://localhost/nodesample-dev')
-db = mongoose.connection
+db_address = "localhost/nodesample-dev"
+
+mongoose.connection.on "open", (ref) ->
+  console.log "Connected to mongo server!".green
+
+mongoose.connection.on "error", (err) ->
+  console.log "Could not connect to mongo server!".yellow
+  console.log err.message.red
+
+try
+  mongoose.connect("mongodb://#{db_address}")
+  db = mongoose.connection
+  console.log "Started connection on " + "mongodb://#{db_address}".cyan + ", waiting for it to open...".grey
+
+catch err
+  console.log "Setting up failed to connect to #{db_address}".red, err.message
+
+
+_ = require "underscore"
 
 Widget = require "../models/widget"
 
@@ -13,9 +30,8 @@ module.exports = (app) ->
       options = { title: "test of time", view: "index" }
 
       test_arr = [0,1,"a",3,4]
-      console.log "testing underscore..."
       test_under = _(test_arr).indexOf("a")
-      console.log "tested array indexof: #{test_under}, if you see 2 UNDERSCORE works"
+      options.title = "New Title after underscore: index of 'a' is #{test_under}"
 
       res.render('index', options)
 
@@ -31,9 +47,11 @@ module.exports = (app) ->
         updated_at: Date.now()
       )
 
-      test_widget.save (err) ->
-        console.error err  if err
+      test_widget.save (error, data) ->
+        if error
+          console.log "ERROR:".red + error.red
+        else
+          console.log "SAVED! \n\n".magenta + data + "\n"
 
-      console.log test_widget
       options = { title: "dumbass figure it out of time", view: "index" }
       res.render('doobie', options)
