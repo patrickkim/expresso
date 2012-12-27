@@ -1,5 +1,4 @@
 _ = require "underscore"
-
 mongoose = require "mongoose"
 mongoose.connect('mongodb://localhost/nodesample-dev')
 db = mongoose.connection
@@ -8,7 +7,6 @@ Widget = require "../models/widget"
 
 module.exports = (app) ->
   class app.ApplicationController
-
 
     # GET /
     @index: (req, res) ->

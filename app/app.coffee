@@ -1,38 +1,55 @@
-# global require:false
-# Module dependencies.
 express  = require "express"
-http     = require "http"
-mongoose = require "mongoose"
-# request = require('request')
 
-# -- String utils
-require "colors"
-require "string-format"
+# Global paths
+static_path      = "#{__dirname}/../public"
+# lib_path         = "#{__dirname}/../lib"
+helpers_path     = "#{__dirname}/helpers"
+models_path      = "#{__dirname}/models"
+views_path       = "#{__dirname}/views"
+controllers_path = "#{__dirname}/controllers"
+routes_path      = "#{__dirname}/routes"
 
-# -- Create Express instance and export
-app    = express()
-env    = app.settings.env
-server = http.createServer(app)
+###
+Global configuration
+###
+module.exports.boot_up_application = (app) ->
+  app.configure ->
 
-# -- Databases
-mongoose = require "mongoose"
-mongoose.connect('mongodb://localhost/nodesample-dev')
-db = mongoose.connection
-db.on "error", console.error.bind(console, "connection error:")
-db.on "open", callback = ->
-  console.log "DB connection sucess"
+    # -- Define view engine with its options
+    app.set "views", views_path
+    app.set "view engine", "ejs"
+    app.enable "jsonp callback"
 
+    # -- Set uncompressed html output and disable layout templating
+    app.locals( pretty: true, layout: false)
 
-# -- Import configuration
-load_config = require("#{__dirname}/../config/settings")
-app_loader    = require("#{__dirname}/app_loader")
-settings    = load_config.settings
+    # -- Parses x-www-form-urlencoded request bodies (and json)
+    app.use express.bodyParser()
+    app.use express.methodOverride()
 
-console.log "Application is starting...".green.bold
-load_config(app, express, env)
-app_loader.boot_up(app)
+    # ## CORS middleware
+    # see: http://stackoverflow.com/questions/7067966/how-to-allow-cors-in-express-nodejs
+    app.use (req, res, next) ->
+      res.header "Access-Control-Allow-Origin", "*"
+      res.header "Access-Control-Allow-Methods", "GET,PUT,POST,DELETE"
+      res.header "Access-Control-Allow-Headers", "Content-Type, Authorization"
+      res.header "Cache-Control", "private, max-age=0"
+      res.header "Expires", new Date().toUTCString()
+      if "OPTIONS" is req.method
+        res.send 200
+      else
+        next()
 
-# -¥- APIs -¥-
-server.listen settings.port, ->
-  console.log "Express server listening on " + " port %d ".bold.red + " in " + " %s mode ".bold.green + " //", settings.port, env
-  console.log "Using Express %s...", express.version.red.bold
+    # -- Express Static Resources
+    app.use express.static(static_path)
+    app.use express.favicon("#{static_path}/images/favicon.ico")
+
+    # -- App helpers
+    app.helpers = require(helpers_path)
+    # app.helpers.autoload(lib_path, app)
+    app.helpers.autoload(models_path, app)
+    app.helpers.autoload(controllers_path, app)
+
+    # -- Express routing
+    app.use app.router
+    require(routes_path)(app)

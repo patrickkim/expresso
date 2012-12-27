@@ -10,13 +10,12 @@ settings =
   # App settings
   HISTORY_LIMIT_MSG_NUMBER: 50
 
-
 ###
 Default configuration manager
 Inject app and express reference
 ###
 module.exports = (app, express, env) ->
-  require("./environments/development") app, express  if env is "development"
-  require("./environments/production") app, express  if env is "production"
+  require("./development") app, express  if env is "development"
+  require("./production") app, express  if env is "production"
 
 module.exports.settings = settings

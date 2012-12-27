@@ -3,20 +3,27 @@
   "version": "0.0.1",
   "dependencies": {
     "express": "3.0.4",
+    "coffee-script": "*",
+    "mongoose": "*",
+    "async": ">= 0.1.22",
     "connect-assets": "2.1.x",
     "ejs": "*",
     "less": "*",
-    "mongoose": "*",
-    "coffee-script": "*",
     "colors": "0.x",
     "string-format": "~0.2.0",
     "underscore": "1.4.3"
   },
   "devDependencies": {
-    "nodemon": "*"
+    "nodemon": "*",
+    "Faker": ">= 0.1.3",
+    "uglify-js": ">= 1.1.1",
+    "mocha": ">= 0.12.1",
+    "chai": ">= 0.3.3",
+    "sinon": ">= 1.3.1"
   },
   "scripts": {
-    "start": "server.js"
+    "start": "node server.js",
+    "test": "./node_modules/mocha/bin/mocha"
   },
   "engines": {
     "node": "0.8.x",
