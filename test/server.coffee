@@ -1,3 +1,4 @@
+
 global.chai   = require 'chai'
 global.assert = chai.assert
 global.expect = chai.expect
@@ -7,6 +8,9 @@ global.async  = require 'async'
 global.test   = it
 global._      = require "underscore"
 
+require "colors"
+auto_loader = require "#{__dirname}/../util/auto_loader"
+test_path = "#{__dirname}"
 
 # global.app    = Tower.Application.instance()
 # Initialize the app before everything.
@@ -21,6 +25,7 @@ global._      = require "underscore"
 #   else
 #     Tower.StoreMongodb.clean(done)
 
+console.log "Starting up Mocha Tests...".cyan
 
 describe "Example Mocha Tests (not connecteded to anything)", ->
   describe "regular javascript stuff?", ->
@@ -33,7 +38,7 @@ describe "Example Mocha Tests (not connecteded to anything)", ->
     it "expect there to be no spoon!", ->
       expect("fork").not.to.equal "spoon"
 
-  describe "global usage of underscore", ->
+  describe "underscore works?", ->
     it "should use underscore contains.", ->
       sample_array = ['a','b','c',1,2,3]
       result = _(sample_array).contains(1)
@@ -41,17 +46,4 @@ describe "Example Mocha Tests (not connecteded to anything)", ->
       result.should.be.ok
       result.should.be.true
 
-
-  describe "more advanced test examples", ->
-    beforeEach ->
-      @pot_of_tea = { tea: ['oolong', 'earl grey', 'chai']}
-
-    it "a pot of tea should exist", ->
-      @pot_of_tea.should.exist
-
-    it "there should be 3 teas in the pot", ->
-      tea_mix = @pot_of_tea.tea
-      tea_mix.length.should.equal(3)
-
-    it "oolong should be the first tea.", ->
-      first_tea = _(@pot_of_tea.tea).first()
+  auto_loader.autoload("#{test_path}/spec")

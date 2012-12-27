@@ -1,9 +1,11 @@
-express  = require "express"
+express = require "express"
+util    = {} #TODO: Find a better pattern to do this.
 
 # Global paths
 static_path      = "#{__dirname}/../public"
+lib_path         = "#{__dirname}/../lib"
+util_path        = "#{__dirname}/../util"
 helpers_path     = "#{__dirname}/helpers"
-lib_path         = "#{__dirname}/lib"
 models_path      = "#{__dirname}/models"
 views_path       = "#{__dirname}/views"
 controllers_path = "#{__dirname}/controllers"
@@ -45,10 +47,11 @@ module.exports.boot_up_application = (app) ->
     app.use express.favicon("#{static_path}/images/favicon.ico")
 
     # -- App helpers
-    app.helpers = require(helpers_path)
-    app.helpers.autoload(lib_path, app)
-    app.helpers.autoload(models_path, app)
-    app.helpers.autoload(controllers_path, app)
+    util.auto_loader = require "#{util_path}/auto_loader"
+    util.auto_loader.autoload(helpers_path, app)
+    util.auto_loader.autoload(lib_path, app)
+    util.auto_loader.autoload(models_path, app)
+    util.auto_loader.autoload(controllers_path, app)
 
     # -- Express routing
     app.use app.router
