@@ -2,12 +2,10 @@
 # Module dependencies.
 express  = require "express"
 http     = require "http"
-mongoose = require "mongoose"
 # request = require('request')
 
 # -- String utils
 require "colors"
-require "string-format"
 
 # -- Create Express instance and export
 app    = express()
@@ -33,5 +31,5 @@ app_loader.boot_up_application(app)
 
 # -¥- APIs -¥-
 server.listen settings.port, ->
-  console.log "Express server listening on " + "port:%d".cyan + " in " + "%s mode".cyan + "...", settings.port, env
+  console.log "Express server listening on " + "port: #{settings.port}".cyan + " in " + "#{env} mode".cyan + "..."
   console.log "Using Express #{express.version}".green

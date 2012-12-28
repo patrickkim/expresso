@@ -1,4 +1,5 @@
 # -- Global settings
+# change this to json formated loader..
 settings =
   siteName: "yoursitename"
   sessionSecret: "sessionSecret"
