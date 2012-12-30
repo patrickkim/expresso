@@ -4,10 +4,12 @@
   "dependencies": {
     "express": "3.0.4",
     "coffee-script": "*",
-    "mongoose": "*",
+    "redis": "*",
+    "gzippo": ">= 0.2.0",
     "async": ">= 0.1.22",
     "connect-assets": "2.1.x",
-    "ejs": "*",
+    "consolidate": "*",
+    "ect": "*",
     "less": "*",
     "colors": "0.x",
     "underscore": "1.4.3"
@@ -22,6 +24,7 @@
   },
   "scripts": {
     "start": "node server.js",
+    "dev": "nodemon --watch app --watch config --watch lib ./app/server.coffee",
     "test": "./node_modules/mocha/bin/mocha"
   },
   "engines": {

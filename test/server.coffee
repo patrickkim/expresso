@@ -1,4 +1,3 @@
-
 global.chai   = require 'chai'
 global.assert = chai.assert
 global.expect = chai.expect
@@ -7,10 +6,9 @@ global.sinon  = require 'sinon'
 global.async  = require 'async'
 global.test   = it
 global._      = require "underscore"
-
+auto_loader   = require "#{__dirname}/../lib/auto_loader"
+test_path     = "#{__dirname}"
 require "colors"
-auto_loader = require "#{__dirname}/../util/auto_loader"
-test_path = "#{__dirname}"
 
 # global.app    = Tower.Application.instance()
 # Initialize the app before everything.
@@ -27,7 +25,7 @@ test_path = "#{__dirname}"
 
 console.log "Starting up Mocha Tests...".cyan
 
-describe "Example Mocha Tests (not connecteded to anything)", ->
+describe "Example Mocha Tests (not connected to anything)".cyan, ->
   describe "regular javascript stuff?", ->
     it "(Array) should return -1 when the value is not present", ->
       expect([1, 2, 3].indexOf(5)).to.equal -1
@@ -46,4 +44,4 @@ describe "Example Mocha Tests (not connecteded to anything)", ->
       result.should.be.ok
       result.should.be.true
 
-  auto_loader.autoload("#{test_path}/spec")
+  auto_loader.autoload("#{test_path}/specs")

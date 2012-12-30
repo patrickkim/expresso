@@ -1,0 +1,30 @@
+{
+  "shared_settings": {
+    "app_name": "Node Kit",
+    "sessionSecret": "there is no spoon"
+  },
+  "development": {
+    "port": 1337,
+    "db": {
+      "host": "localhost",
+      "database": "node_dev",
+      "port": 27017
+    }
+  },
+  "test": {
+    "port": 1338,
+    "db": {
+      "host": "localhost",
+      "database": "node_test",
+      "port": 27017
+    }
+  },
+  "production": {
+    "port": 3000,
+    "db": {
+      "host": "localhost",
+      "database": "node_production",
+      "port": 27017
+    }
+  }
+}
