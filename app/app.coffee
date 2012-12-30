@@ -1,9 +1,13 @@
-express = require "express"
-ect     = require "ect"
-env     = process.env.NODE_ENV || "development"
+express     = require "express"
+ect         = require "ect"
+
+# App Config
+config_path = "#{__dirname}/../config"
+config      = require "#{config_path}/config"
+env         = process.env.NODE_ENV || "development"
+port        = process.env.PORT || config[env].port
 
 # Global paths
-config_path      = "#{__dirname}/../config"
 static_path      = "#{__dirname}/../public"
 lib_path         = "#{__dirname}/../lib"
 vendor_path      = "#{__dirname}/../vendor"
@@ -13,18 +17,15 @@ views_path       = "#{__dirname}/views"
 controllers_path = "#{__dirname}/controllers"
 routes_path      = "#{__dirname}/routes"
 
-###
-Global configuration
-###
+
 module.exports = (app) ->
-  config = require "#{config_path}/config"
   app.settings.app_name = config.shared_settings.app_name
 
   # -- Load Environment Settings
   require("#{config_path}/development") app, express  if env is "development"
   require("#{config_path}/production") app, express  if env is "production"
 
-  port = process.env.PORT || config[env].port
+  # -- Set Port
   app.set "port", port
 
   # -- Database Settings
