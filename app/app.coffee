@@ -24,7 +24,8 @@ module.exports = (app) ->
   require("#{config_path}/development") app, express  if env is "development"
   require("#{config_path}/production") app, express  if env is "production"
 
-  app.set "port", config[env].port
+  port = process.env.PORT || config[env].port
+  app.set "port", port
 
   # -- Database Settings
 
