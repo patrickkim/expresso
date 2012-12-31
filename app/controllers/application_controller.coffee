@@ -1,5 +1,5 @@
 _ = require "underscore"
-Widget = require "../models/widget"
+Widget = require("../models/widget").Widget
 
 module.exports = (app) ->
   class app.ApplicationController
@@ -25,15 +25,11 @@ module.exports = (app) ->
       test_widget = new Widget(
         name: req.body.field_of_one
         desc: req.body.field_of_two
-        updated_at: Date.now()
       )
       console.log "test_widget > PREP TO SAVE:".cyan + "#{JSON.stringify(test_widget)}".grey.bold
 
-      # test_widget.save (error, data) ->
-      #   if error
-      #     console.log "ERROR:".red + error.red
-      #   else
-      #     console.log "SAVED! \n\n".magenta + data + "\n"
+      test_widget.save()
+
 
       options = { title: "dumbass figure it out of time", view: "index" }
       res.render('doobie', options)

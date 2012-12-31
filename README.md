@@ -13,6 +13,10 @@ Things I might want to add in later.
 "walk" of "findit"
 "modernizer"
 "backbone"
+"connect-redis"
+"socket-io"
+
+
 
 Email Usage...
 "mime"
