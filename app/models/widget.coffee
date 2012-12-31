@@ -1,6 +1,11 @@
 _     = require "underscore"
 redis = require("redis").createClient()
 
+# db.select(1, (err, res) ->
+#   # if(err) return err;
+#   db.set('key', 'string')   #this will be posted to database 1 rather than db 0
+
+
 class Widget
   constructor: (options) ->
     @name = options.name
@@ -14,8 +19,8 @@ class Widget
     console.log "Saving Widget..."
     console.log @
 
-    redis.incr "widget_id", (err, id) ->
-      console.log "New Widget: #{id} "
+    # redis.incr "next.widget.id", (err, id) ->
+    #   console.log "New Widget: #{id} "
       # redis.hset "widget:#{id}", "name", @name , "description", @description
 
     console.log "Tada! It's a new widget #{@name}!"
