@@ -59,6 +59,8 @@ module.exports = (app) ->
   app.use express.static(static_path)
   app.use express.favicon("#{static_path}/icons/favicon.ico")
 
+  app.get '/mocha_test', app.mocha_test_route if env is "development"
+
   # -- Express routing
   app.use app.router
 
