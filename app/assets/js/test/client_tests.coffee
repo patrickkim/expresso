@@ -9,7 +9,6 @@ describe "more advanced test examples", ->
     @pot_of_tea.should.exist
 
 
-
   it "there should be 3 teas in the pot", ->
     tea_mix = @pot_of_tea.tea
     tea_mix.length.should.equal(3)
