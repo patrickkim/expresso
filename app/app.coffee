@@ -7,6 +7,7 @@ config      = require "#{config_path}/config"
 env         = process.env.NODE_ENV || "development"
 port        = process.env.PORT || config[env].port
 
+
 # Global paths
 static_path      = "#{__dirname}/../public"
 lib_path         = "#{__dirname}/../lib"
@@ -15,8 +16,6 @@ helpers_path     = "#{__dirname}/helpers"
 models_path      = "#{__dirname}/models"
 views_path       = "#{__dirname}/views"
 controllers_path = "#{__dirname}/controllers"
-routes_path      = "#{__dirname}/routes"
-
 
 module.exports = (app) ->
   app.settings.app_name = config.shared_settings.app_name
@@ -70,4 +69,6 @@ module.exports = (app) ->
   auto_loader.autoload(helpers_path, app)
   auto_loader.autoload(models_path, app)
   auto_loader.autoload(controllers_path, app)
-  auto_loader.autoload(routes_path, app)
+
+  # -- Routes
+  require("#{config_path}/routes") app

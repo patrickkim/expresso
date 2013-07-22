@@ -15,6 +15,6 @@ module.exports = (app, express) ->
     showStack: true
   )
 
-  app.mocha_test_route = (req, res) ->
+  app.mocha_test_route = (request, resource) ->
     options = { title: "test of time", view: "mocha_client_test" }
-    res.render('mocha/index', options)
+    resource.render('tests/index', options)
