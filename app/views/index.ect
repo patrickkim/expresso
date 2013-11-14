@@ -1,22 +1,12 @@
 <% extend "partials/layout" %>
 
-<p>
-  This is on the inside!
-  <a href="/dumbass">Doomsday</a>
-</p>
+<div id="roulette-stage">
+  <div id="roulette">
+    <div id="wheel" class="is_spinning"></div>
+    <div id="ball-stage"></div>
+  </div>
+  <div id="rim-overlay"></div>
+</div>
 
-<div id="yu-no-work"></div>
-<img src="/images/yu-no-work.gif" />
 
-<h2> Coffeescript test.</h2> Nodemon test!
-<ul>
-<% for i in [0..4]: %>
-  <li class="<%= i %>">This is the one <%= i %></li>
-<% end %>
-</ul>
-
-<form action="/form-test" method="post">
-  <input type="text" name="field_of_one" placeholder="field 1" />
-  <input type="text" name="field_of_two" placeholder="field 2" />
-  <input type="submit" value="Fire all." />
-</form>
+<a id="toggle-spin">Spin!</a>

@@ -1,0 +1,41 @@
+// Roulette Styles
+#roulette-stage
+  position: relative;
+  width: 520px;
+  height: 510px;
+  border: 2px solid red;
+  margin:  0 auto ;
+  background: url("/images/bg.jpg") 0 0 no-repeat;
+
+#roulette
+  position: relative;
+  width: 325px;
+  height: 325px;
+  margin: 22px 0 0 100px;
+  // border: 1px solid orange;
+
+#wheel
+  position: absolute;
+  top: 50%; left: 50%;
+  margin: -108px 0 0 -108px;
+  width: 216px;
+  height: 216px;
+  background: url("/images/wheel.png") 0 0 no-repeat;
+
+  &.is_spinning
+    -webkit-animation: spin 6s infinite;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-fill-mode: forwards;
+
+#rim-overlay
+  position: absolute;
+  top: 3px; left: 78px;
+  width: 363px;
+  height: 363px;
+  background: url("/images/overlay.png") 0 0 no-repeat;
+  opacity: 0.95;
+  // border: 1px solid pink
+
+#ball-stage
+  width: 300px; height: 300px;
+  // border: 1px solid blue;

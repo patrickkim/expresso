@@ -1,5 +1,6 @@
 #= require_tree vendor
-#= require new
-#= require_self
+#= require giddyapps
+#= require roulette
 
-console.log "I'm ready. to go!"
+$ ->
+  GiddyApps.initialize()
