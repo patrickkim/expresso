@@ -1,9 +1,18 @@
 window.GiddyApps ?= {}
 
 window.GiddyApps =
+  Models: {}
+  Collections: {}
+  Views: {}
+  Routers: {}
+  Utilities: {}
 
   initialize: (options = {}) ->
-    console.log "!"
-    GiddyApps.roulette = new GiddyApps.Roulette()
+    @_setup_game_model()
+    @_setup_game_view()
 
-    $("#toggle-spin").on "click", -> GiddyApps.roulette.toggle_spin()
+  _setup_game_model: ->
+    GiddyApps.game = new GiddyApps.Models.Roulette()
+
+  _setup_game_view: ->
+    GiddyApps.game_view = new GiddyApps.Views.RouletteView(el: "#roulette", game: GiddyApps.game)

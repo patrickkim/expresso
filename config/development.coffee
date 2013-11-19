@@ -1,5 +1,5 @@
 connect_assets = require "connect-assets"
-assets_path = "#{__dirname}/../app/assets"
+ect            = require "ect"
 
 module.exports = (app, express) ->
   app.use express.logger("dev")

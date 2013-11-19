@@ -3,12 +3,12 @@
   <head>
     <meta charset="utf-8">
     <title><%= @title %></title>
-    <%- css('application') %>
+    <%- css "application" %>
   </head>
 
   <body data-view="<%- @view %>">
     <% content %>
 
-    <%- js('scripts.js') %>
+    <%- js "scripts" %>
   </body>
 </html>

@@ -17,6 +17,9 @@ models_path      = "#{__dirname}/models"
 views_path       = "#{__dirname}/views"
 controllers_path = "#{__dirname}/controllers"
 
+# Frontend Template compilation
+templates_path   = "#{__dirname}/assets/templates"
+
 module.exports = (app) ->
   app.settings.app_name = config.shared_settings.app_name
 
@@ -30,7 +33,7 @@ module.exports = (app) ->
   # -- Database Settings
 
 
-  # -- Define view engine with its options, Using ect
+  # -- Define view engine with its options, Using ect for backend templates.
   # see: http://ectjs.com/
   ect_engine = ect(watch: true, root: views_path, ext: ".ect")
 
