@@ -1,3 +1,4 @@
+window.JST = {}
 window.GiddyApps ?= {}
 
 window.GiddyApps =
@@ -15,4 +16,5 @@ window.GiddyApps =
     GiddyApps.game = new GiddyApps.Models.Roulette()
 
   _setup_game_view: ->
-    GiddyApps.game_view = new GiddyApps.Views.RouletteView(el: "#roulette", game: GiddyApps.game)
+    GiddyApps.game_view = new GiddyApps.Views.RouletteView(roulette: GiddyApps.game)
+    $("#game-container").append GiddyApps.game_view.el

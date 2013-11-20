@@ -1,30 +1,30 @@
 class GiddyApps.Views.RouletteView extends Backbone.View
+  id: "roulette"
+  template: JST["roulette_template"]
 
-  initialize: ->
+  events:
+    "click #spin": "spin"
+
+  initialize: (options ={}) ->
+    @roulette = options.roulette
     @render()
 
   leave: ->
     @remove()
 
   render: ->
-    @_setup_canvas_stage()
-    @_setup_ball()
+    @$el.html @template()
+    @_render_wheel()
+    @_render_history()
     this
 
-  spin: ->
-    @ball_view.trigger "spin-start"
+  spin: =>
+    @roulette.spin()
 
-  stop: ->
-    @ball_view.trigger "spin-stop"
+  _render_wheel: ->
+    @wheel_view = new GiddyApps.Views.RouletteWheelView(roulette: @roulette)
+    @$el.append @wheel_view.el
 
-  _setup_canvas_stage: ->
-    # You could be smart about this and draw it based on the dom elements?
-    @stage = new Kinetic.Stage(
-      container: "ball-stage"
-      width: 325
-      height: 325
-    )
-
-  _setup_ball: ->
-    @ball = new GiddyApps.Models.RouletteBall()
-    @ball_view = new GiddyApps.Views.RouletteBallView(el: "#ball-stage", stage: @stage)
+  _render_history: ->
+    @history_view = new GiddyApps.Views.RouletteHistoryView(roulette: @roulette)
+    @$el.append @history_view.el
