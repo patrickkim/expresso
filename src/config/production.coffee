@@ -1,5 +1,5 @@
 connect_assets = require "connect-assets"
-assets_path    = "#{__dirname}/../app/assets"
+assets_path    = "#{__dirname}/../assets"
 # fs            = require("fs")
 
 module.exports = (app, express) ->

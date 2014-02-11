@@ -1,1 +1,0 @@
-#= require sample_test

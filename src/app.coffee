@@ -2,16 +2,14 @@ express     = require "express"
 ect         = require "ect"
 
 # App Config
-config_path = "#{__dirname}/../config"
-config      = require "#{config_path}/config"
+config      = require "#{__dirname}/config"
 env         = process.env.NODE_ENV || "development"
 port        = process.env.PORT || config[env].port
 
-
 # Global paths
 static_path      = "#{__dirname}/../public"
-lib_path         = "#{__dirname}/../lib"
-vendor_path      = "#{__dirname}/../vendor"
+lib_path         = "#{__dirname}/lib"
+# vendor_path      = "#{__dirname}/../vendor"
 helpers_path     = "#{__dirname}/helpers"
 models_path      = "#{__dirname}/models"
 views_path       = "#{__dirname}/views"
@@ -21,11 +19,12 @@ controllers_path = "#{__dirname}/controllers"
 templates_path   = "#{__dirname}/assets/templates"
 
 module.exports = (app) ->
+
+  console.log config
   app.settings.app_name = config.shared_settings.app_name
 
   # -- Load Environment Settings
-  require("#{config_path}/development") app, express  if env is "development"
-  require("#{config_path}/production") app, express  if env is "production"
+  require("#{config_path}/#{env}") app, express
 
   # -- Set Port
   app.set "port", port
@@ -60,8 +59,6 @@ module.exports = (app) ->
   # -- Express Static Resources
   app.use express.static(static_path)
   app.use express.favicon("#{static_path}/icons/favicon.ico")
-
-  app.get '/mocha', app.mocha_test_route if env is "development"
 
   # -- Express routing
   app.use app.router

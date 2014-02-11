@@ -18,3 +18,5 @@ module.exports = (app, express) ->
   app.mocha_test_route = (request, resource) ->
     options = { title: "test of time", view: "mocha_client_test" }
     resource.render('tests/index', options)
+
+  app.get '/mocha', app.mocha_test_route if env is "development"
