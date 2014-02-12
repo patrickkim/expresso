@@ -1,53 +1,23 @@
 express     = require "express"
 ect         = require "ect"
-
-# App Config
-config      = require "#{__dirname}/config"
-env         = process.env.NODE_ENV || "development"
-port        = process.env.PORT || config[env].port
-
-# Global paths
-static_path      = "#{__dirname}/../public"
-lib_path         = "#{__dirname}/lib"
-# vendor_path      = "#{__dirname}/../vendor"
-helpers_path     = "#{__dirname}/helpers"
-models_path      = "#{__dirname}/models"
-views_path       = "#{__dirname}/views"
-controllers_path = "#{__dirname}/controllers"
-
-# Frontend Template compilation
-templates_path   = "#{__dirname}/assets/templates"
+config_path = "#{__dirname}/config"
+auto_loader = require "#{__dirname}../../util/auto_loader"
 
 module.exports = (app) ->
-
-  console.log config
-  app.settings.app_name = config.shared_settings.app_name
+  require("#{config_path}/shared")(app, express)
 
   # -- Load Environment Settings
-  require("#{config_path}/#{env}") app, express
-
-  # -- Set Port
-  app.set "port", port
-
-  # -- Database Settings
-
-
-  # -- Define view engine with its options, Using ect for backend templates.
-  # see: http://ectjs.com/
-  ect_engine = ect(watch: true, root: views_path, ext: ".ect")
-
-  app.set "views", views_path
-  app.set "view engine", "ect"
-  app.engine("ect", ect_engine.render)
-  app.enable "jsonp callback"
-
+  if app.ENV is "production" || app.ENV is "testing" || app.ENV is "development"
+    require("#{config_path}/#{app.ENV}") app, express
+  else
+    console.log "environment #{app.ENV} not found"
   # -- Parses x-www-form-urlencoded request bodies (and json)
   app.use express.bodyParser()
   app.use express.methodOverride()
   app.use express.cookieParser()
 
-  # CORS middleware
-  # see: http://stackoverflow.com/questions/7067966/how-to-allow-cors-in-express-nodejs
+  # # CORS middleware
+  # # see: http://stackoverflow.com/questions/7067966/how-to-allow-cors-in-express-nodejs
   app.use (req, res, next) ->
     res.header "Access-Control-Allow-Origin", "*"
     res.header "Access-Control-Allow-Methods", "GET,PUT,POST,DELETE"
@@ -57,18 +27,26 @@ module.exports = (app) ->
     if "OPTIONS" is req.method then res.send 200 else next()
 
   # -- Express Static Resources
-  app.use express.static(static_path)
-  app.use express.favicon("#{static_path}/icons/favicon.ico")
+  app.use express.static(app.PATH["static"])
+  app.use express.favicon("#{app.PATH["static"]}/icons/favicon.ico")
 
   # -- Express routing
   app.use app.router
 
-  # -- Booting up App Assets
-  auto_loader = require "#{lib_path}/auto_loader"
-  auto_loader.autoload(lib_path, app)
-  auto_loader.autoload(helpers_path, app)
-  auto_loader.autoload(models_path, app)
-  auto_loader.autoload(controllers_path, app)
+   # -- Define view engine with its options, Using ect for backend templates.
+  # see: http://ectjs.com/
+  ect_engine = ect(watch: true, root: app.PATH["views"], ext: ".ect")
+
+  app.set "views", app.PATH["views"]
+  app.set "view engine", "ect"
+  app.engine("ect", ect_engine.render)
+  app.enable "jsonp callback"
+
+  # -- Booting up App
+  auto_loader.autoload(app.PATH["lib"], app)
+  auto_loader.autoload(app.PATH["helpers"], app)
+  auto_loader.autoload(app.PATH["models"], app)
+  auto_loader.autoload(app.PATH["controllers"], app)
 
   # -- Routes
-  require("#{config_path}/routes") app
+  require("#{__dirname}/routes") app

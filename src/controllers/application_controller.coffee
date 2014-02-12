@@ -6,9 +6,8 @@ module.exports = (app) ->
 
     # GET /
     @index: (req, res) ->
+      console.log "hitting the tight place".blue
       options = { title: "test of time", view: "index" }
-
-      console.log "NODEMON TEST! watching me? WORKING? twice"
       test_arr = [0,1,"a",3,4]
       test_under = _(test_arr).indexOf("a")
       options.title = "New Title after underscore: index of 'a' is #{test_under}"

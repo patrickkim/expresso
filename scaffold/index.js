@@ -19,6 +19,6 @@ module.exports = function(name) {
   }
   renderAndSave("controller.coffee.ejs", "src/controllers/"+ name+"s.coffee");
   renderAndSave("model.coffee.ejs", "src/models/"+ name+".coffee");
-  renderAndSave("test.coffee.ejs", "test/"+ name+"s_test.coffee");
+  renderAndSave("test.coffee.ejs", "test/"+ name+"_test.coffee");
 
 }

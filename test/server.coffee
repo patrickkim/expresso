@@ -1,16 +1,16 @@
-global.chai   = require 'chai'
+global.chai   = require "chai"
 global.assert = chai.assert
 global.expect = chai.expect
 global.should = chai.should()
-global.sinon  = require 'sinon'
-global.async  = require 'async'
+global.sinon  = require "sinon"
+global.async  = require "async"
 global.test   = it
 global._      = require "underscore"
-auto_loader   = require "#{__dirname}/../lib/auto_loader"
+auto_loader   = require "#{__dirname}/../util/auto_loader"
 test_path     = "#{__dirname}"
 require "colors"
 
-# global.app    = Tower.Application.instance()
+global.app = Tower.Application.instance()
 # Initialize the app before everything.
 # before (done) ->
 #   console.log test

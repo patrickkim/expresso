@@ -1,6 +1,6 @@
 {
   "shared_settings": {
-    "app_name": "Node Kit",
+    "app_name": "Expresso",
     "sessionSecret": "there is no spoon"
   },
   "development": {

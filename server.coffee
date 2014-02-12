@@ -3,9 +3,6 @@
 express = require "express"
 http    = require "http"
 
-# require("coffee-script")
-# require("./app/server.coffee")
-
 # -- String utils
 require "colors"
 
@@ -13,7 +10,7 @@ require "colors"
 app = express()
 server = http.createServer(app)
 
-# -- Import config settings.
+# -- Import app settings.
 app_loader = require("#{__dirname}/src/app")
 console.log "\n=> Booting up ...".cyan.bold
 app_loader(app)

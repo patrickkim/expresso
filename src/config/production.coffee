@@ -1,8 +1,16 @@
+config = require "config"
 connect_assets = require "connect-assets"
-assets_path    = "#{__dirname}/../assets"
 # fs            = require("fs")
 
 module.exports = (app, express) ->
+  # Turn off Debugging?
+  # app.DEBUG_LOG = false
+  # app.DEBUG_WARN = false
+  # app.DEBUG_ERROR = true
+  # app.DEBUG_CLIENT = false
+
+  # app.set "port", port
+
   # Enable HTML compression
   app.locals.pretty = false
 
