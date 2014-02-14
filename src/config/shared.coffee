@@ -20,6 +20,3 @@ module.exports = (app, express) ->
   # Frontend Template compilation
   app.PATH["templates_path"] = "#{__dirname}../../assets/templates"
 
-  # [Body parser middleware](http://www.senchalabs.org/connect/middleware-bodyParser.html) parses JSON or XML bodies into `req.body` object
-  app.use express.urlencoded()
-  app.use express.json()

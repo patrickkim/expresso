@@ -1,6 +1,5 @@
 config = require "./config"
-assets = require "connect-assets"
-ect = require "ect"
+connect_assets = require "connect-assets"
 
 module.exports = (app, express) ->
   # app.DEBUG_LOG = true
@@ -12,24 +11,22 @@ module.exports = (app, express) ->
   # app.DB_NAME = 'mvc_example'
   # app.DB_USER = 'root'
   # app.DB_PASS = 'root'
+  app.locals.pretty = true # <- Enable formatted and uncompress html
+
   app.set "port", config[app.ENV].port
 
-  # Logging
+  # Logging?
   app.use express.logger("dev")
 
-  # Enable formatted and uncompress html
-  app.locals.pretty = true
-
-  # Enable dependency based asset loading
-  console.log app.PATH["assets"]
-  app.use assets()
-
+  app.use connect_assets()
   app.use express.errorHandler(
     dumpExceptions: true
     showStack: true
   )
 
+  # Add /mocha route for front end tests
   app.mocha_test_route = (request, resource) ->
     options = { title: "test of time", view: "mocha_client_test" }
     resource.render('tests/index', options)
+
   app.get '/mocha', app.mocha_test_route
