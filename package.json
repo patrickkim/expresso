@@ -27,7 +27,7 @@
   },
   "scripts": {
     "start": "coffee server.coffee",
-    "dev": "nodemon --watch src --watch ./assets/js",
+    "dev": "nodemon --nodejs --debug server.coffee -w ./src -w ./assets",
     "test": "./node_modules/mocha/bin/mocha"
   },
   "engines": {

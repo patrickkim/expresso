@@ -20,7 +20,7 @@ module.exports = (app) ->
   app.all '/:controller/:method/:id', (req, res, next) ->
     route_mvc(req.params.controller, req.params.method, req, res, next)
 
-  # # Error handling (No previous route found. Assuming it’s a 404)
+  # Error handling (No previous route found. Assuming it’s a 404)
   app.get '/*', (req, res) ->
     resource_not_found(res)
 
@@ -31,13 +31,11 @@ module.exports = (app) ->
 
   route_mvc = (controller_name, method_name, req, res, next) ->
     controller_name = 'index' if not controller_name?
-    # controller = null
-    # data = null
 
     try
-      controller = require "./controllers/#{controller_name}"
+      controller = require "#{app.PATH["controllers"]}/#{controller_name}"
     catch e
-      console.warn "controller not found: #{controller_name}", e
+      console.warn "[ERROR]".red + " controller not found:".grey + " '#{controller_name}'\n\n", e
       next()
       return
 
@@ -45,5 +43,6 @@ module.exports = (app) ->
       action_method = controller[method_name].bind controller
       action_method req, res, next
     else
-      console.warn 'method not found: ' + method_name
+      console.warn "[ERROR]".red + "method not found: ".grey + "#{method_name}"
       next()
+      

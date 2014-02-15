@@ -13,11 +13,9 @@ module.exports = (app) ->
     console.log "environment #{app.ENV} not found"
 
   # -- Parses x-www-form-urlencoded request bodies (and json)
-  app.use express.bodyParser()
+  # [Body parser middleware](http://www.senchalabs.org/connect/middleware-bodyParser.html) parses JSON or XML bodies into `req.body` object
   app.use express.methodOverride()
   app.use express.cookieParser()
-
-  # [Body parser middleware](http://www.senchalabs.org/connect/middleware-bodyParser.html) parses JSON or XML bodies into `req.body` object
   app.use express.urlencoded()
   app.use express.json()
 
@@ -33,8 +31,8 @@ module.exports = (app) ->
 
   # -- Express routing
   # -- Express Static Resources (order matters this takes precendence )
-  app.use express.static(app.PATH["static"])
   app.use express.favicon("#{app.PATH["static"]}/icons/favicon.ico")
+  app.use express.static(app.PATH["static"])
   app.use app.router
 
   # -- Define view engine with its options, Using ect for backend templates.
@@ -53,4 +51,4 @@ module.exports = (app) ->
   auto_loader.autoload(app.PATH["controllers"], app)
 
   # -- Routes
-  require("#{__dirname}/routes") app
+  require(app.PATH["routes"]) app
