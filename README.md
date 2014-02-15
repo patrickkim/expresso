@@ -1,5 +1,5 @@
 =======
-node-kit
+Expresso
 ========
 
 
@@ -9,7 +9,7 @@ node-kit
 ### Things I might want to add in later.
 "walk" of "findit"
 "modernizer"
-"connect-redis"
+"connect-redis" or "mongoose"
 "socket-io"
 
 ### Email Usage...

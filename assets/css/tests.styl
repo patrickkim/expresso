@@ -1,0 +1,160 @@
+@charset "UTF-8"
+@import "lib/_reset"
+
+body
+  font: 20px/1.5 "Monaco", Helvetica, Arial, sans-serif
+  padding: 60px 50px
+  background: #fff
+
+#mocha
+  h1
+    margin: 15px 0 5px 0
+    font-size: 16px
+    font-weight: 200
+
+    a
+      text-decoration: none
+      color: inherit
+
+      &:hover { text-decoration: underline }
+
+  h2
+    font-size: 12px
+    font-weight: normal
+    cursor: pointer
+
+  .suite, .test { margin-left: 15px }
+
+  .test
+    margin: 0 0 5px 0;
+    clear: both;
+
+    .duration
+      font-size: 11px
+      margin-left: 5px
+      padding: 2px 5px
+      color: #ccc;
+      border-radius: 5px
+
+    pre
+      display: inline-block
+      font: 12px/1.5 monaco, monospace
+      margin: 5px
+      padding: 15px
+      border: 1px solid #eee
+      border-bottom-color: #ddd
+      border-radius: 3px
+      box-shadow: 0 1px 3px #eee
+
+    h2 { position: relative }
+
+    a.replay
+      position: absolute
+      top: 3px
+      left: -20px
+      text-decoration: none
+      vertical-align: middle
+      display: block
+      width: 15px
+      height: 15px
+      line-height: 15px
+      text-align: center
+      background: #eee
+      font-size: 15px
+      border-radius: 15px
+      transition: opacity 200ms
+      opacity: 0.2
+      color: #888
+
+    &:hover
+      a.replay { opacity: 1 }
+
+    &.pending
+      color: #0b97c4
+
+      &::before
+        content: '◦'
+        color: #0b97c4
+
+      &:hover h2::after
+        content: '(pending)'
+
+    &.pass
+      &::before
+        content: '✓'
+        font-size: 26px 
+        line-height: 15px;
+        display: block
+        float: left
+        margin-right: 5px
+        color: #00d6b2
+
+      &.fast
+        .duration { color: #ccc }
+
+      &.medium
+        .duration { background: #C09853 }
+
+      &.slow
+        .duration { background: #B94A48 }
+
+    &.fail
+      color: #c00
+
+      pre
+        color: #000
+
+      &::before
+        content: '✖'
+        font-size: 12px
+        display: block
+        float: left
+        margin-right: 5px
+        color: #c00
+
+#mocha-report
+  &.pass
+    .test.fail { display: none }
+
+  &.fail
+    .test.pass { display: none }
+
+#mocha-error
+  color: #c00
+  font-size: 1.5  em
+  font-weight: 100
+  letter-spacing: 1px
+
+#mocha-stats
+  position: fixed
+  top: 15px
+  right: 30px
+  font-size: 12px
+  margin: 0
+  color: #888
+
+  .progress
+    float: right
+    padding-top: 0
+
+  em
+    color: #000
+
+  a
+    text-decoration: nones
+    color: inherit
+
+    &:hover { border-bottom: 1px solid #eee }
+
+  li
+    display: inline-block
+    margin: 0 5px
+    padding-top: 11px
+    list-style: none
+
+code
+  .comment { color: #ddd }
+  .init { color: #2F6FAD }
+  .string { color: #5890AD }
+  .keyword { color: #8A6343 }
+  .number { color: #2F6FAD }
