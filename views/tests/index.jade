@@ -1,0 +1,16 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    title Mocha Tests
+
+    != css("test_suite")
+
+  body
+    #mocha
+
+    //- App to Test
+    != js("test_suite")
+
+    script mocha.run()
+

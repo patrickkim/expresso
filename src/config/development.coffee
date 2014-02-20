@@ -1,7 +1,8 @@
 config = require "./config"
-connect_assets = require "connect-assets"
+assets = require "connect-assets"
 
 module.exports = (app, express) ->
+
   # app.DEBUG_LOG = true
   # app.DEBUG_WARN = true
   # app.DEBUG_ERROR = true
@@ -18,7 +19,13 @@ module.exports = (app, express) ->
   # Logging?
   app.use express.logger("dev")
 
-  app.use connect_assets()
+  app.use assets(
+    paths: [
+      "#{app.PATH["assets"]}/css"
+      "#{app.PATH["assets"]}/js"
+      "#{app.PATH["assets"]}/templates"
+    ]
+  )
   app.use express.errorHandler(
     dumpExceptions: true
     showStack: true

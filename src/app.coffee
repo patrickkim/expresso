@@ -1,25 +1,41 @@
 express     = require "express"
-ect         = require "ect"
-config_path = "#{__dirname}/config"
 auto_loader = require "#{__dirname}/util/auto_loader"
+config      = require "#{__dirname}/config/config"
 
 module.exports = (app) ->
-  require("#{config_path}/shared")(app, express)
+  # -- Shared Settings
+  app.settings.app_name = config.shared_settings.app_name
+  app.ENV = process.env.NODE_ENV || "development"
+
+  # -- Global paths
+  app.PATH = {}
+  app.PATH["config"]      = "#{__dirname}/config"
+  app.PATH["static"]      = "#{__dirname}/../public"
+  app.PATH["assets"]      = "#{__dirname}/../assets"
+  app.PATH["lib"]         = "#{__dirname}/lib"
+  app.PATH["helpers"]     = "#{__dirname}/helpers"
+  app.PATH["models"]      = "#{__dirname}/models"
+  app.PATH["views"]       = "#{__dirname}/../views"
+  app.PATH["controllers"] = "#{__dirname}/controllers"
+  app.PATH["routes"]      = "#{__dirname}/routes"
+
+  # -- Express Static Resources (order matters this takes precendence )
+  app.use express.static("#{app.PATH["static"] }")
+  app.use express.favicon("#{app.PATH["static"]}/icons/favicon.ico")
 
   # -- Load Environment Settings
   if app.ENV is "production" || app.ENV is "testing" || app.ENV is "development"
-    require("#{config_path}/#{app.ENV}") app, express
+    require("#{app.PATH["config"]}/#{app.ENV}") app, express
   else
-    console.log "environment #{app.ENV} not found"
+    console.log "[ERROR] environment #{app.ENV} not found".red
 
   # -- Parses x-www-form-urlencoded request bodies (and json)
-  # [Body parser middleware](http://www.senchalabs.org/connect/middleware-bodyParser.html) parses JSON or XML bodies into `req.body` object
   app.use express.methodOverride()
   app.use express.cookieParser()
   app.use express.urlencoded()
   app.use express.json()
 
-  # # CORS middleware
+  # -- CORS middleware
   # # see: http://stackoverflow.com/questions/7067966/how-to-allow-cors-in-express-nodejs
   app.use (req, res, next) ->
     res.header "Access-Control-Allow-Origin", "*"
@@ -30,18 +46,11 @@ module.exports = (app) ->
     if "OPTIONS" is req.method then res.send 200 else next()
 
   # -- Express routing
-  # -- Express Static Resources (order matters this takes precendence )
-  app.use express.favicon("#{app.PATH["static"]}/icons/favicon.ico")
-  app.use express.static(app.PATH["static"])
   app.use app.router
 
   # -- Define view engine with its options, Using ect for backend templates.
-  # see: http://ectjs.com/
-  ect_engine = ect(watch: true, root: app.PATH["views"], ext: ".ect")
+  app.set 'view engine', 'jade'
 
-  app.set "views", app.PATH["views"]
-  app.set "view engine", "ect"
-  app.engine("ect", ect_engine.render)
   app.enable "jsonp callback"
 
   # -- Booting up App
@@ -50,5 +59,5 @@ module.exports = (app) ->
   auto_loader.autoload(app.PATH["models"], app)
   auto_loader.autoload(app.PATH["controllers"], app)
 
-  # -- Routes
+  # -- Routes for App
   require(app.PATH["routes"]) app

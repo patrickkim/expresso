@@ -1,5 +1,5 @@
 config = require "config"
-connect_assets = require "connect-assets"
+assets = require "connect-assets"
 # fs            = require("fs")
 
 module.exports = (app, express) ->

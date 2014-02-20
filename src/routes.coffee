@@ -20,10 +20,6 @@ module.exports = (app) ->
   app.all '/:controller/:method/:id', (req, res, next) ->
     route_mvc(req.params.controller, req.params.method, req, res, next)
 
-  # Error handling (No previous route found. Assuming it’s a 404)
-  app.get '/*', (req, res) ->
-    resource_not_found(res)
-
   # == render the page based on controller name, method and id
   # TODO: might want to make this a module concern.
   resource_not_found = (res) ->
@@ -45,4 +41,4 @@ module.exports = (app) ->
     else
       console.warn "[ERROR]".red + "method not found: ".grey + "#{method_name}"
       next()
-      
+
